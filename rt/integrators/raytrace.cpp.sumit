@@ -1,0 +1,80 @@
+/*
+ * raytrace.cpp
+ *
+ *  Created on: Dec 4, 2015
+ *      Author: sumit
+ */
+
+#include "raytrace.h"
+#include <rt/ray.h>
+#include <rt/world.h>
+#include <rt/intersection.h>
+#include <core/scalar.h>
+#include <rt/lights/pointlight.h>
+#include <rt/lights/light.h>
+#include <rt/solids/solid.h>
+#include <rt/materials/material.h>
+
+using namespace rt;
+
+RGBColor rt::RayTracingIntegrator::getRadiance(const Ray& ray) const
+{
+	Light* temp_light;
+	LightHit temp_light_hit;
+	Point hit_point;;
+	Ray shad_ray;
+	Intersection intersection,shad_intersect;
+	RGBColor color = RGBColor::rep(0.0f);
+
+	intersection = world->scene->intersect(ray);
+
+	if(intersection)
+	{
+		if(world->light.size()==0)
+		{
+			color = color + intersection.solid->material->getEmission(intersection.local(), intersection.normal(),-ray.d);
+		}
+		else
+		{
+			for (int i=0; i< world->light.size(); i++)
+			{
+
+				temp_light=world->light.at(i);
+				temp_light_hit =temp_light->getLightHit(intersection.hitPoint());
+
+				shad_ray = Ray(intersection.hitPoint(), temp_light_hit.direction);
+
+
+				if(  dot(shad_ray.d, intersection.normal())*dot(ray.d, intersection.normal()) > 0)
+					continue;
+
+				Intersection shad_intersect = world->scene->intersect(shad_ray);
+
+				if(shad_intersect)
+				{
+					if(shad_intersect.solid != intersection.solid && shad_intersect.distance>0 &&
+							shad_intersect.distance < temp_light_hit.distance)
+						continue;
+
+					//if(shad_intersect.distance < temp_light_hit.distance) continue;
+
+					//				if(shad_intersect.solid==intersection.solid && dot(shad_ray.d, shad_intersect.normal())<0) continue;
+				}
+
+				RGBColor reflect = intersection.solid->material->getReflectance(intersection.hitPoint(), intersection.normal(), -ray.d, shad_ray.d);
+				color = color + temp_light->getIntensity(temp_light_hit)*reflect;
+
+
+
+			}
+            color = color + intersection.solid->material->getEmission(intersection.hitPoint(), intersection.normal(), -ray.d);
+		}
+		return color.clamp();
+	}
+	else
+	{
+		return RGBColor(0,0,0);
+	}
+
+
+}

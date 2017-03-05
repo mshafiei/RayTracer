@@ -1,0 +1,58 @@
+# Blender MTL File: 'None'
+# Material Count: 6
+
+newmtl blinn9SG.005
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.035000 0.035000 0.035000
+Ni 1.000000
+d 0.000000
+illum 6
+
+newmtl lego_girl_Kissana:blinn2SG.002
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.620800 0.588800 0.409600
+Ks 0.035000 0.035000 0.035000
+Ni 1.000000
+d 0.000000
+illum 6
+
+newmtl lego_girl_Kissana:blinn3SG.002
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.035000 0.035000 0.035000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Kd lego_people_obj\face_kissana_medsis.jpg
+
+newmtl lego_girl_Kissana:blinn4SG.002
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.595200 0.454400 0.300800
+Ks 0.035000 0.035000 0.035000
+Ni 1.000000
+d 0.000000
+illum 6
+
+newmtl lego_girl_Kissana:blinn5SG.002
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.035000 0.035000 0.035000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Kd lego_people_obj\body_kissana_medsis.jpg
+
+newmtl lego_girl_Kissana:blinn7SG.002
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.035000 0.035000 0.035000
+Ni 1.000000
+d 0.000000
+illum 6
